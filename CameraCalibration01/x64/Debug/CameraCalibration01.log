@@ -1,0 +1,5 @@
+﻿  calibration.cpp
+e:\cloud\research\vision\cameracalibration01\cameracalibration01\calibration.cpp(82): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
+e:\cloud\research\vision\cameracalibration01\cameracalibration01\calibration.cpp(154): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+e:\cloud\research\vision\cameracalibration01\cameracalibration01\calibration.cpp(155): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  CameraCalibration01.vcxproj -> E:\Cloud\Research\Vision\CameraCalibration01\x64\Debug\CameraCalibration01.exe

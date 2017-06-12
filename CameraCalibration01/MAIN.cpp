@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "calibration.h"
+#include "PNPSolver.h"
 
 int main() {
 	CameraCalibrator myCameraCalibrator;

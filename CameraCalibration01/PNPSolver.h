@@ -5,10 +5,7 @@
 #include <iostream>
 #include <fstream>
 using namespace std;
-
-
-
-
+//using namespace cv;
 // 本类用于快速解决PNP问题，顺带解决空间绕轴旋转以及图像系、相机系、世界系三系坐标投影问题
 // 默认使用Gao的P3P+重投影法，要求输入4个特征点
 // 调用顺序：

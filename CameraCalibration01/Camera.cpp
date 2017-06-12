@@ -39,21 +39,38 @@ bool MindVisionCAM::Init()
 	//CameraSetAeState(m_hCamera, FALSE);//设置相机曝光的模式。自动或者手动。bState：TRUE，使能自动曝光；FALSE，停止自动曝光。
 	//CameraSetExposureTime(m_hCamera, 1000 * ExposureTimeMS);//曝光时间10ms = 1000微秒*10
 	//CameraSetAnalogGain(m_hCamera, 10 * AnalogGain);//设置模拟增益16=1.6  该值乘以 CameraGetCapability  获得的相机属性结构体中sExposeDesc.fAnalogGainStep ，就得到实际的图像信号放大倍数。
-	if (ColorType == CV_8U)
-	{
-		CameraSetMonochrome(m_hCamera, TRUE);//设置黑白图像
-	}
+	//if (ColorType == CV_8U)
+	//{
+	//	CameraSetMonochrome(m_hCamera, TRUE);//设置黑白图像
+	//}
 	//CameraSetFrameSpeed(m_hCamera, sCameraInfo.iFrameSpeedDesc - 1);//设定相机输出图像的帧率。iFrameSpeedSel：选择的帧率模式索引号，范围从 0 到CameraGetCapability 获得的信息结构体中	iFrameSpeedDesc - 1
 
-	if (sCameraInfo.sIspCapacity.bMonoSensor)//ISP 能力描述，BOOL bMonoSensor; //表示该型号相机是否为黑白相机,如果是黑白相机，则颜色相关的功能都无法调节
-	{
-		CameraSetIspOutFormat(m_hCamera, CAMERA_MEDIA_TYPE_MONO8);
-	}
+	//if (sCameraInfo.sIspCapacity.bMonoSensor)//ISP 能力描述，BOOL bMonoSensor; //表示该型号相机是否为黑白相机,如果是黑白相机，则颜色相关的功能都无法调节
+	//{
+	//	CameraSetIspOutFormat(m_hCamera, CAMERA_MEDIA_TYPE_MONO8);
+	//}
+
+	//获取相机配置文件毕竟加载器参数
+	
+	static const int MAX_LEN = 200;
+	TCHAR c_wPath[MAX_LEN];
+	GetCurrentDirectory(MAX_LEN, c_wPath);
+
+	wstring wstrPath(&c_wPath[0]);						//convert to wstring
+	string strPath(wstrPath.begin(), wstrPath.end());	//and convert to string.
+	strPath += "//CAMConfig.Config";
+
+	char *cstr = new char[strPath.length() + 1];
+	strcpy(cstr, strPath.c_str());						//convert to char*
+	int loadstatus = CameraReadParameterFromFile(m_hCamera, cstr);		
+
+	//if (loadstatus != CAMERA_STATUS_SUCCESS)
+	//	QMessageBox::information(NULL, tr("Select file path"), tr("You didn't select any files."));
 
 	//创建该相机的属性配置窗口。
 	CameraCreateSettingPage(m_hCamera, NULL, "cam", NULL, NULL, 0);//"通知SDK内部建该相机的属性页面";
 
-	CameraSetMirror(m_hCamera, 1, TRUE);
+	//CameraSetMirror(m_hCamera, 1, TRUE);
 
 	//相机初始化完成
 	CameraShowSettingPage(m_hCamera, TRUE);//TRUE显示相机配置界面。FALSE则隐藏

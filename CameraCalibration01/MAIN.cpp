@@ -6,9 +6,18 @@
 #include "PNPSolver.h"
 #include "Camera.h"
 #include "RTMonitor.h"
-#define RTMONITOR
+#define TEST
 
-#ifdef CALIBRATION
+#ifdef TEST
+int main()
+{
+	const int MAX_PATH_LENGTH = 200;
+	TCHAR pBuf[MAX_PATH_LENGTH];
+	GetCurrentDirectory(MAX_PATH_LENGTH, pBuf);
+	return 0;
+}
+
+#elif defined CALIBRATION
 int main() {
 	CameraCalibrator myCameraCalibrator;
 	myCameraCalibrator.setFilename();

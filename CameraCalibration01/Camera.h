@@ -3,6 +3,7 @@
 #include "windows.h"
 
 #include "..//Include//CameraApi.h"
+#include "process.h"
 
 #ifdef _WIN64
 #pragma comment(lib, "..//lib//MVCAMSDK_X64.lib")
@@ -56,4 +57,7 @@ private:
 	CameraHandle    m_hCamera;		//相机句柄，多个相机同时使用时，可以用数组代替	
 	BYTE*           m_pFrameBuffer; //用于将原始图像数据转换为RGB的缓冲区
 	bool isCapturing = false;
+
+
+	
 };

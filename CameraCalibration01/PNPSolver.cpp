@@ -1,5 +1,6 @@
+#include "stdafx.h"
 #include "PNPSolver.h"
-
+using namespace cv;
 
 // 本类用于快速解决PNP问题，顺带解决空间绕轴旋转以及图像系、相机系、世界系三系坐标投影问题
 // 调用顺序：

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "calibration.h"
+using namespace cv;
 
 void CameraCalibrator::setFilename() {
 	m_filenames.clear();
@@ -144,7 +145,7 @@ void CameraCalibrator::calErr()
 	double err = 0.0; /* 每幅图像的平均误差 */
 	vector<Point2f> image_points2; /* 保存重新计算得到的投影点 */
 	cout << "\t每幅图像的标定误差：\n";
-	for (int i = 0;i<m_filenames.size();i++)
+	for (int i = 0;i < m_filenames.size();i++)
 	{
 		vector<Point3f> tempPointSet = m_dstPoints[i];
 		/* 通过得到的摄像机内外参数，对空间的三维点进行重新投影计算，得到新的投影点 */

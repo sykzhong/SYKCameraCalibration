@@ -1,4 +1,7 @@
+#include "stdafx.h"
 #include "RTMonitor.h"
+
+
 
 RTMonitor::RTMonitor()
 {

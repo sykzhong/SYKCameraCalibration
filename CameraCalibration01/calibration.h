@@ -1,27 +1,27 @@
-	#pragma once
+#pragma once
 #include <cstdio>
 #include <opencv2/opencv.hpp>
 #include <vector>
 #include <string>
 
-using namespace cv;
+//using namespace cv;
 using namespace std;
 
 class CameraCalibrator {
 private:
 	vector<string> m_filenames;
-	Size m_borderSize;
-	vector<vector<Point2f> > m_srcPoints;
-	vector<vector<Point3f> > m_dstPoints;
+	cv::Size m_borderSize;
+	vector<vector<cv::Point2f> > m_srcPoints;
+	vector<vector<cv::Point3f> > m_dstPoints;
 public:
 	void setFilename();
-	void setBorderSize(const Size &borderSize);
+	void setBorderSize(const cv::Size &borderSize);
 	void addChessboardPoints();
-	void addPoints(const vector<Point2f> &imageCorners, const vector<Point3f> &objectCorners);
-	void calibrate(const Mat &src, Mat &dst);
+	void addPoints(const vector<cv::Point2f> &imageCorners, const vector<cv::Point3f> &objectCorners);
+	void calibrate(const cv::Mat &src, cv::Mat &dst);
 	void calErr();
 	void calibrateresult();
 private:
-	vector<Mat> rvecs, tvecs;
-	Mat cameraMatrix, distCoeffs, map1, map2;
+	vector<cv::Mat> rvecs, tvecs;
+	cv::Mat cameraMatrix, distCoeffs, map1, map2;
 };

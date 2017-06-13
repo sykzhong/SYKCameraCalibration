@@ -1,8 +1,8 @@
 #include "stdafx.h"
-#include "calibration.h"
+#include "CAMCalibrator.h"
 using namespace cv;
 
-void CameraCalibrator::setFilename() {
+void CAMCalibrator::setFilename() {
 	m_filenames.clear();
 	//m_filenames.push_back("chess1.bmp");
 	//m_filenames.push_back("chess2.bmp");
@@ -70,11 +70,13 @@ void CameraCalibrator::setFilename() {
 }
 
 
-void CameraCalibrator::setBorderSize(const Size &borderSize) {
+void CAMCalibrator::setBorderSize(const Size &borderSize) 
+{
 	m_borderSize = borderSize;
 }
 
-void CameraCalibrator::addChessboardPoints() {
+void CAMCalibrator::addChessboardPoints() 
+{
 	vector<Point2f> srcCandidateCorners;
 	vector<Point3f> dstCandidateCorners;
 	for (int i = 0; i<m_borderSize.height; i++) {
@@ -100,12 +102,12 @@ void CameraCalibrator::addChessboardPoints() {
 	}
 }
 
-void CameraCalibrator::addPoints(const vector<Point2f> &srcCorners, const vector<Point3f> &dstCorners) {
+void CAMCalibrator::addPoints(const vector<Point2f> &srcCorners, const vector<Point3f> &dstCorners) {
 	m_srcPoints.push_back(srcCorners);
 	m_dstPoints.push_back(dstCorners);
 }
 
-void CameraCalibrator::calibrate(const Mat &src, Mat &dst) 
+void CAMCalibrator::calibrate(const Mat &src, Mat &dst) 
 {
 	Size imageSize = src.size();
 	calibrateCamera(m_dstPoints, m_srcPoints, imageSize, cameraMatrix, distCoeffs, rvecs, tvecs);
@@ -123,7 +125,7 @@ void CameraCalibrator::calibrate(const Mat &src, Mat &dst)
 	//remap(src, dst, map1, map2, INTER_MAX);
 }
 
-void CameraCalibrator::calibrateresult()
+void CAMCalibrator::calibrateresult()
 {
 
 	for (int i = 0; i<m_filenames.size(); i++) 
@@ -139,7 +141,7 @@ void CameraCalibrator::calibrateresult()
 	}
 }
 
-void CameraCalibrator::calErr()
+void CAMCalibrator::calErr()
 {
 	double total_err = 0.0; /* 所有图像的平均误差的总和 */
 	double err = 0.0; /* 每幅图像的平均误差 */
@@ -166,4 +168,35 @@ void CameraCalibrator::calErr()
 	std::cout << "总体平均误差：" << total_err / m_filenames.size() << "像素" << endl;
 	std::cout << "评价完成！" << endl;
 	//保存定标结果  	
+}
+
+void CAMCalibrator::getPictures(string Prefix)
+{
+	MindVisionCAM mvcam;
+
+	if (mvcam.Init())
+	{
+		mvcam.StartCapture();
+		cout << "Press 'c' to capture picture, Press esc to exit" << endl;
+
+		string winName = "Picture";
+		namedWindow(winName);
+		Mat m_picture;
+
+		int picCount = 0;
+		while(waitKey(1) != 27)
+		{
+			m_picture = mvcam.Grub();
+			imshow(winName, m_picture);
+			if (waitKey(1) == 'c')
+			{
+				char c_num[20];
+				sprintf(c_num, "%03d", picCount);
+				string filename = Prefix + c_num + ".jpg";
+				imwrite(filename, m_picture);
+				cout << "Store picture " << filename << endl;
+				picCount++;
+			}
+		}
+	}
 }

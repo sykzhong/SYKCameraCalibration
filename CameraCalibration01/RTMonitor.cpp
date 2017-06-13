@@ -22,7 +22,7 @@ void RTMonitor::resetCenters()
 
 void RTMonitor::inputImage(Mat& img)
 {
-	srcImage = Mat();
+	//srcImage = Mat();
 	srcImage = img.clone();
 	paintBoard = Mat::zeros(srcImage.size(), CV_8UC3);
 }
@@ -163,6 +163,8 @@ Point2f RTMonitor::tracking(Mat& image, Point2f& lastcenter)
 
 void RTMonitor::solvePos(PNPSolver& p4psolver)
 {
+	if (lastCenters.size() < 4)
+		return;
 	//首先将位姿估计类内的特征点的像素坐标记录清0。
 	p4psolver.Points2D.clear();
 	//然后将新跟踪到的特征点像素坐标插入

@@ -1,9 +1,5 @@
-﻿  Camera.cpp
-e:\cloud\research\vision\cameracalibration01\cameracalibration01\camera.cpp(55): error C2131: 表达式的计算结果不是常数
-  e:\cloud\research\vision\cameracalibration01\cameracalibration01\camera.cpp(55): note: 非常量参数或对非常量符号的引用导致了故障
-  e:\cloud\research\vision\cameracalibration01\cameracalibration01\camera.cpp(55): note: 请参见“this”的用法
-  正在生成代码...
-  正在编译...
-  MAIN.cpp
-e:\cloud\research\vision\cameracalibration01\cameracalibration01\pnpsolver.h(121): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
-  正在生成代码...
+﻿  CAMCalibrator.cpp
+e:\cloud\research\vision\cameracalibration01\cameracalibration01\camcalibrator.cpp(85): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
+e:\cloud\research\vision\cameracalibration01\cameracalibration01\camcalibrator.cpp(157): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+e:\cloud\research\vision\cameracalibration01\cameracalibration01\camcalibrator.cpp(158): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  CameraCalibration01.vcxproj -> E:\Cloud\Research\Vision\CameraCalibration01\x64\Debug\CameraCalibration01.exe

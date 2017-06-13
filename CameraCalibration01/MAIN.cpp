@@ -2,19 +2,24 @@
 //
 
 #include "stdafx.h"
-#include "calibration.h"
+#include "CAMCalibrator.h"
 #include "PNPSolver.h"
 #include "Camera.h"
 #include "RTMonitor.h"
+
+//You can choose the following code block to run:
+//----TEST
+//----CALIBRATION
+//----RTMONITOR
+
+
 #define TEST
 
 #ifdef TEST
 int main()
 {
-	const int MAX_PATH_LENGTH = 200;
-	TCHAR pBuf[MAX_PATH_LENGTH];
-	GetCurrentDirectory(MAX_PATH_LENGTH, pBuf);
-	return 0;
+	CAMCalibrator calibrator;
+	calibrator.getPictures();
 }
 
 #elif defined CALIBRATION
@@ -80,13 +85,14 @@ int main()
 		cout << "请在屏幕上点击确定特征点，特征点的点选顺序应与p4psolver.Points3D的存储顺序一致。" << endl;
 		while (waitKey(1) != 27)
 		{
-			if (waitKey(1) != 'r')
+			if (waitKey(1) == 'r')
 			{
 				monitor.resetCenters();
 			}
+			monitor.inputImage(mvcam.Grub());
 			monitor.trackingCenters();
 			monitor.solvePos(p4psolver);
-			monitor.showPaintBoard("Campos");
+			monitor.showPaintBoard("CamPos");
 		}
 		mvcam.Release();
 	}

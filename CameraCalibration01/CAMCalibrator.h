@@ -3,11 +3,12 @@
 #include <opencv2/opencv.hpp>
 #include <vector>
 #include <string>
+#include "Camera.h"
 
 //using namespace cv;
 using namespace std;
 
-class CameraCalibrator {
+class CAMCalibrator {
 private:
 	vector<string> m_filenames;
 	cv::Size m_borderSize;
@@ -21,6 +22,7 @@ public:
 	void calibrate(const cv::Mat &src, cv::Mat &dst);
 	void calErr();
 	void calibrateresult();
+	void getPictures(string Prefix = "syk");
 private:
 	vector<cv::Mat> rvecs, tvecs;
 	cv::Mat cameraMatrix, distCoeffs, map1, map2;

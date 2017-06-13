@@ -64,8 +64,14 @@ bool MindVisionCAM::Init()
 	strcpy(cstr, strPath.c_str());						//convert to char*
 	int loadstatus = CameraReadParameterFromFile(m_hCamera, cstr);		
 
-	//if (loadstatus != CAMERA_STATUS_SUCCESS)
-	//	QMessageBox::information(NULL, tr("Select file path"), tr("You didn't select any files."));
+	if (loadstatus != CAMERA_STATUS_SUCCESS)
+	{
+		printf("Fail to load para!/n");
+		return FALSE;
+	}
+	//申请空间
+	m_pFrameBuffer = (BYTE *)CameraAlignMalloc(sCameraInfo.sResolutionRange.iWidthMax*sCameraInfo.sResolutionRange.iWidthMax * 3, 16);
+
 
 	//创建该相机的属性配置窗口。
 	CameraCreateSettingPage(m_hCamera, NULL, "cam", NULL, NULL, 0);//"通知SDK内部建该相机的属性页面";

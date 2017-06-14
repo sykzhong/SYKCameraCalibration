@@ -6,6 +6,8 @@
 #include "Camera.h"
 #include "easylogging++.h"
 
+#include "GlobalMethod.h"
+
 //using namespace cv;
 using namespace std;
 using namespace el;
@@ -25,7 +27,7 @@ public:
 	void calibrate();									//进行校正提取
 	void calErr();										//判断校正误差
 	void remapPic();									//对拍摄的所有图像进行校正
-	void getPictures(string Prefix = "syk");			//拍摄图像
+	void getPictures();			//拍摄图像
 
 	void getPic2Calibrate(bool automode = false);		//完整的校正流程
 
@@ -39,5 +41,5 @@ private:
 	vector<cv::Mat> rvecs, tvecs;					//校正所得参数（calibrateCamera）
 	cv::Mat cameraMatrix, distCoeffs, map1, map2;	//相机内参、畸变系数，以及remap所用参数
 
-	string Prefix;									//存储图像文件的前缀名
+	string Prefix;									//存储图像文件的文件夹
 };

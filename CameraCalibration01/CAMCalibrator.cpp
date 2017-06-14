@@ -3,7 +3,7 @@
 using namespace cv;
 
 CAMCalibrator::CAMCalibrator() :
-	Prefix("Pictures\\syk")
+	Prefix("\\Pictures")
 {
 
 }
@@ -15,6 +15,27 @@ CAMCalibrator::~CAMCalibrator()
 
 void CAMCalibrator::setFilename() {
 	m_filenames.clear();
+	string filePath;
+	GlobalMethod::GetCurrentFile(filePath);
+	filePath = filePath + Prefix;
+	char * distAll = "AllFiles.txt";
+	
+	//读取所有的文件，包括子文件的文件  
+	//GetAllFiles(filePath, files);  
+	
+	//读取所有格式为jpg的文件  
+	string format = ".jpg";
+	GlobalMethod::GetAllFormatFiles(filePath, m_filenames, format);
+	ofstream ofn(distAll);
+	int size = m_filenames.size();
+	ofn << size << endl;
+	for (int i = 0;i<size;i++)
+	{
+		ofn << m_filenames[i] << endl;
+		cout << m_filenames[i] << endl;
+	}
+	ofn.close();
+	return;
 	//m_filenames.push_back("chess1.bmp");
 	//m_filenames.push_back("chess2.bmp");
 	//m_filenames.push_back("chess3.bmp");
@@ -186,7 +207,7 @@ void CAMCalibrator::calErr()
 	//保存定标结果  	
 }
 
-void CAMCalibrator::getPictures(string Prefix)
+void CAMCalibrator::getPictures()
 {
 	MindVisionCAM mvcam;
 
@@ -209,7 +230,7 @@ void CAMCalibrator::getPictures(string Prefix)
 			{
 				char c_num[20];
 				sprintf(c_num, "%03d", picCount);
-				string filename = Prefix + c_num + ".jpg";
+				string filename = Prefix + "\\syk" + c_num + ".jpg";
 				imwrite(filename, m_picture);
 				cout << "Store picture " << filename << endl;
 				m_filenames.push_back(filename);
@@ -226,7 +247,7 @@ void CAMCalibrator::getPic2Calibrate(bool automode)
 	Loggers::reconfigureLogger("default", conf);
 	LOG(TRACE) << "Begin CAMCalibrate";
 	if (automode == true)
-		this->getPictures("Pictures\\syk");
+		this->getPictures();
 	else
 		this->setFilename();
 	this->setBorderSize(Size(4, 7));

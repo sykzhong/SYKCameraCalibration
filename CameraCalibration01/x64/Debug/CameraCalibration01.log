@@ -1,33 +1,6 @@
-﻿  stdafx.cpp
-  RTMonitor.cpp
-e:\cloud\research\vision\cameracalibration01\cameracalibration01\pnpsolver.h(121): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
-e:\cloud\research\vision\cameracalibration01\cameracalibration01\rtmonitor.cpp(40): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
-e:\cloud\research\vision\cameracalibration01\cameracalibration01\rtmonitor.cpp(62): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
-e:\cloud\research\vision\cameracalibration01\cameracalibration01\rtmonitor.cpp(63): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
-e:\cloud\research\vision\cameracalibration01\cameracalibration01\rtmonitor.cpp(136): warning C4244: “初始化”: 从“unsigned __int64”转换到“double”，可能丢失数据
-e:\cloud\research\vision\cameracalibration01\cameracalibration01\rtmonitor.cpp(137): warning C4244: “初始化”: 从“unsigned __int64”转换到“double”，可能丢失数据
-e:\cloud\research\vision\cameracalibration01\cameracalibration01\rtmonitor.cpp(138): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
-  PNPSolver.cpp
-e:\cloud\research\vision\cameracalibration01\cameracalibration01\pnpsolver.h(121): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
-e:\cloud\research\vision\cameracalibration01\cameracalibration01\pnpsolver.cpp(104): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-e:\cloud\research\vision\cameracalibration01\cameracalibration01\pnpsolver.cpp(105): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-e:\cloud\research\vision\cameracalibration01\cameracalibration01\pnpsolver.cpp(106): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-e:\cloud\research\vision\cameracalibration01\cameracalibration01\pnpsolver.cpp(110): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-e:\cloud\research\vision\cameracalibration01\cameracalibration01\pnpsolver.cpp(111): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-e:\cloud\research\vision\cameracalibration01\cameracalibration01\pnpsolver.cpp(112): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-e:\cloud\research\vision\cameracalibration01\cameracalibration01\pnpsolver.cpp(130): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-e:\cloud\research\vision\cameracalibration01\cameracalibration01\pnpsolver.cpp(131): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-e:\cloud\research\vision\cameracalibration01\cameracalibration01\pnpsolver.cpp(132): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-e:\cloud\research\vision\cameracalibration01\cameracalibration01\pnpsolver.cpp(141): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-e:\cloud\research\vision\cameracalibration01\cameracalibration01\pnpsolver.cpp(142): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-e:\cloud\research\vision\cameracalibration01\cameracalibration01\pnpsolver.cpp(143): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-e:\cloud\research\vision\cameracalibration01\cameracalibration01\pnpsolver.cpp(178): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
-  MAIN.cpp
-e:\cloud\research\vision\cameracalibration01\cameracalibration01\pnpsolver.h(121): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
-  Camera.cpp
-  CAMCalibrator.cpp
-e:\cloud\research\vision\cameracalibration01\cameracalibration01\camcalibrator.cpp(85): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
-e:\cloud\research\vision\cameracalibration01\cameracalibration01\camcalibrator.cpp(160): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
-e:\cloud\research\vision\cameracalibration01\cameracalibration01\camcalibrator.cpp(161): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
-  正在生成代码...
+﻿  CAMCalibrator.cpp
+e:\cloud\research\vision\cameracalibration01\cameracalibration01\camcalibrator.cpp(30): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+e:\cloud\research\vision\cameracalibration01\cameracalibration01\camcalibrator.cpp(119): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
+e:\cloud\research\vision\cameracalibration01\cameracalibration01\camcalibrator.cpp(194): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+e:\cloud\research\vision\cameracalibration01\cameracalibration01\camcalibrator.cpp(195): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
   CameraCalibration01.vcxproj -> E:\Cloud\Research\Vision\CameraCalibration01\x64\Debug\CameraCalibration01.exe

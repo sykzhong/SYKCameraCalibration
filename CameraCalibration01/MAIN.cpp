@@ -2,11 +2,13 @@
 //
 
 #include "stdafx.h"
+#include "GlobalMethod.h"
+
+
 #include "CAMCalibrator.h"
 #include "PNPSolver.h"
 #include "Camera.h"
 #include "RTMonitor.h"
-
 //You can choose the following code block to run:
 //----TEST
 //----CALIBRATION
@@ -21,7 +23,7 @@ int main()
 {
 	CAMCalibrator calibrator;
 	//calibrator.getPictures("Pictures\\syk");
-	calibrator.getPic2Calibrate();
+	calibrator.getPic2Calibrate(false);
 }
 
 #elif defined CALIBRATION

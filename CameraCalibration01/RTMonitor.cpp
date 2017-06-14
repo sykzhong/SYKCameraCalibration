@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "RTMonitor.h"
-
+#include "GlobalMethod.h"
 
 
 RTMonitor::RTMonitor()

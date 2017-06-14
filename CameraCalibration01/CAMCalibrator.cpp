@@ -2,6 +2,17 @@
 #include "CAMCalibrator.h"
 using namespace cv;
 
+CAMCalibrator::CAMCalibrator() :
+	Prefix("Pictures\\syk")
+{
+
+}
+
+CAMCalibrator::~CAMCalibrator()
+{
+	
+}
+
 void CAMCalibrator::setFilename() {
 	m_filenames.clear();
 	//m_filenames.push_back("chess1.bmp");
@@ -46,27 +57,29 @@ void CAMCalibrator::setFilename() {
 	//m_filenames.push_back("sykchess (10).JPG");
 	//m_filenames.push_back("sykchess (11).JPG");
 
-	m_filenames.push_back("sykchess1.JPG");
-	m_filenames.push_back("sykchess2.JPG");
-	m_filenames.push_back("sykchess3.JPG");
-	m_filenames.push_back("sykchess4.JPG");
-	m_filenames.push_back("sykchess5.JPG");
-	m_filenames.push_back("sykchess6.JPG");
-	m_filenames.push_back("sykchess7.JPG");
-	m_filenames.push_back("sykchess8.JPG");
-	m_filenames.push_back("sykchess9.JPG");
-	m_filenames.push_back("sykchess10.JPG");
-	m_filenames.push_back("sykchess11.JPG");
-	m_filenames.push_back("sykchess12.JPG");
-	m_filenames.push_back("sykchess13.JPG");
-	m_filenames.push_back("sykchess14.JPG");
-	m_filenames.push_back("sykchess15.JPG");
-	m_filenames.push_back("sykchess16.JPG");
-	m_filenames.push_back("sykchess17.JPG");
-	m_filenames.push_back("sykchess18.JPG");
-	m_filenames.push_back("sykchess19.JPG");
-	m_filenames.push_back("sykchess20.JPG");
+	//m_filenames.push_back("sykchess1.JPG");
+	//m_filenames.push_back("sykchess2.JPG");
+	//m_filenames.push_back("sykchess3.JPG");
+	//m_filenames.push_back("sykchess4.JPG");
+	//m_filenames.push_back("sykchess5.JPG");
+	//m_filenames.push_back("sykchess6.JPG");
+	//m_filenames.push_back("sykchess7.JPG");
+	//m_filenames.push_back("sykchess8.JPG");
+	//m_filenames.push_back("sykchess9.JPG");
+	//m_filenames.push_back("sykchess10.JPG");
+	//m_filenames.push_back("sykchess11.JPG");
+	//m_filenames.push_back("sykchess12.JPG");
+	//m_filenames.push_back("sykchess13.JPG");
+	//m_filenames.push_back("sykchess14.JPG");
+	//m_filenames.push_back("sykchess15.JPG");
+	//m_filenames.push_back("sykchess16.JPG");
+	//m_filenames.push_back("sykchess17.JPG");
+	//m_filenames.push_back("sykchess18.JPG");
+	//m_filenames.push_back("sykchess19.JPG");
+	//m_filenames.push_back("sykchess20.JPG");
 	//m_filenames.push_back("sykchess21.JPG");
+
+
 }
 
 
@@ -88,6 +101,7 @@ void CAMCalibrator::addChessboardPoints()
 
 	for (int i = 0; i<m_filenames.size(); i++) {
 		Mat image = imread(m_filenames[i], CV_LOAD_IMAGE_GRAYSCALE);
+		imageSize = image.size();
 		findChessboardCorners(image, m_borderSize, srcCandidateCorners);
 		find4QuadCornerSubpix(image, srcCandidateCorners, Size(5, 5)); //对粗提取的角点进行精确化	syk
 
@@ -97,19 +111,20 @@ void CAMCalibrator::addChessboardPoints()
 		//imshow("Camera Calibration", image);//显示图片
 		//waitKey(500);
 		if (srcCandidateCorners.size() == m_borderSize.area()) {
-			addPoints(srcCandidateCorners, dstCandidateCorners);
+			m_srcPoints.push_back(srcCandidateCorners);
+			m_dstPoints.push_back(dstCandidateCorners);
 		}
 	}
 }
 
-void CAMCalibrator::addPoints(const vector<Point2f> &srcCorners, const vector<Point3f> &dstCorners) {
-	m_srcPoints.push_back(srcCorners);
-	m_dstPoints.push_back(dstCorners);
-}
+//void CAMCalibrator::addPoints(const vector<Point2f> &srcCorners, const vector<Point3f> &dstCorners) {
+//	m_srcPoints.push_back(srcCorners);
+//	m_dstPoints.push_back(dstCorners);
+//}
 
-void CAMCalibrator::calibrate(const Mat &src, Mat &dst) 
+void CAMCalibrator::calibrate() 
 {
-	Size imageSize = src.size();
+	//Size imageSize = src.size();
 	calibrateCamera(m_dstPoints, m_srcPoints, imageSize, cameraMatrix, distCoeffs, rvecs, tvecs);
 	calErr();
 	cout << "cameraMatrix = " << cameraMatrix << endl;
@@ -120,12 +135,13 @@ void CAMCalibrator::calibrate(const Mat &src, Mat &dst)
 	initUndistortRectifyMap(cameraMatrix, distCoeffs, Mat(), 
 		getOptimalNewCameraMatrix(cameraMatrix, distCoeffs, imageSize, 1, imageSize, 0), imageSize, CV_32F, map1, map2);
 
-	cout << newcameraMatrix;																	
-	remap(src, dst, map1, map2, INTER_LINEAR);
+	LOG(TRACE) << "cameraMatrix = " << cameraMatrix;
+	LOG(TRACE) << "distCoeffs = " << distCoeffs;
+	//remap(src, dst, map1, map2, INTER_LINEAR);
 	//remap(src, dst, map1, map2, INTER_MAX);
 }
 
-void CAMCalibrator::calibrateresult()
+void CAMCalibrator::remapPic()
 {
 
 	for (int i = 0; i<m_filenames.size(); i++) 
@@ -146,7 +162,7 @@ void CAMCalibrator::calErr()
 	double total_err = 0.0; /* 所有图像的平均误差的总和 */
 	double err = 0.0; /* 每幅图像的平均误差 */
 	vector<Point2f> image_points2; /* 保存重新计算得到的投影点 */
-	cout << "\t每幅图像的标定误差：\n";
+	LOG(TRACE) << "\t每幅图像的标定误差：";
 	for (int i = 0;i < m_filenames.size();i++)
 	{
 		vector<Point3f> tempPointSet = m_dstPoints[i];
@@ -163,10 +179,10 @@ void CAMCalibrator::calErr()
 		}
 		err = norm(image_points2Mat, tempImagePointMat, NORM_L2);
 		total_err += err /= m_borderSize.width*m_borderSize.height;
-		std::cout << "第" << i + 1 << "幅图像的平均误差：" << err << "像素" << endl;
+		LOG(TRACE) << "第" << i + 1 << "幅图像的平均误差：" << err << "像素";
 	}
-	std::cout << "总体平均误差：" << total_err / m_filenames.size() << "像素" << endl;
-	std::cout << "评价完成！" << endl;
+	LOG(TRACE) << "总体平均误差：" << total_err / m_filenames.size() << "像素";
+	LOG(TRACE) << "评价完成！";
 	//保存定标结果  	
 }
 
@@ -177,7 +193,8 @@ void CAMCalibrator::getPictures(string Prefix)
 	if (mvcam.Init())
 	{
 		mvcam.StartCapture();
-		cout << "Press 'c' to capture picture, Press esc to exit" << endl;
+		cout << "Press 'c' to capture picture\n"
+			<< "Press esc to exit\n" << endl;
 
 		string winName = "Picture";
 		namedWindow(winName);
@@ -195,8 +212,25 @@ void CAMCalibrator::getPictures(string Prefix)
 				string filename = Prefix + c_num + ".jpg";
 				imwrite(filename, m_picture);
 				cout << "Store picture " << filename << endl;
+				m_filenames.push_back(filename);
 				picCount++;
 			}
 		}
+		mvcam.Release();
 	}
+}
+
+void CAMCalibrator::getPic2Calibrate(bool automode)
+{
+	Configurations conf("my-conf.conf");
+	Loggers::reconfigureLogger("default", conf);
+	LOG(TRACE) << "Begin CAMCalibrate";
+	if (automode == true)
+		this->getPictures("Pictures\\syk");
+	else
+		this->setFilename();
+	this->setBorderSize(Size(4, 7));
+	this->addChessboardPoints();
+	this->calibrate();
+	this->remapPic();
 }

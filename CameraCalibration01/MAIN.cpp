@@ -16,10 +16,12 @@
 #define TEST
 
 #ifdef TEST
+INITIALIZE_EASYLOGGINGPP
 int main()
 {
 	CAMCalibrator calibrator;
-	calibrator.getPictures();
+	//calibrator.getPictures("Pictures\\syk");
+	calibrator.getPic2Calibrate();
 }
 
 #elif defined CALIBRATION

@@ -1,0 +1,17 @@
+data1 = getTxtData(string('pnp_theta.txt'));
+data1 = data1 / 180 * pi;
+data2 = getTxtData(string('pnp_t.txt'));
+clf;
+
+R2 = rotx(0);
+R1 = trotx(data1(1))*troty(data1(2))*trotz(data1(3));
+R1 = transl(data2) * R1;
+trplot(R1, 'length', 100, 'frame', 'B', 'text_opts', ...,
+{'FontSize', 10, 'FontWeight', 'bold'}, 'rgb', 'axis', [-500 500 -500 500 -500 500]);
+hold on;
+trplot(R2, 'length', 100, 'rgb', 'axis', [-500 500 -500 500 -500 500]);
+plot3(0, 0, 0, 'r.','MarkerSize',20)
+plot3(0, 200, 0, 'r.','MarkerSize',20)
+plot3(150, 0, 0, 'r.','MarkerSize',20)
+plot3(0, 200, 0, 'r.','MarkerSize',20)
+

@@ -15,10 +15,10 @@
 //----RTMONITOR
 
 
-#define TEST
-
-#ifdef TEST
+#define RTMONITOR
 INITIALIZE_EASYLOGGINGPP
+#ifdef TEST
+
 int main()
 {
 	CAMCalibrator calibrator;
@@ -64,16 +64,16 @@ int main()
 		cvSetMouseCallback("CamPos", RTMonitor::onMouseHandle, &monitor);
 		/********需结合Calibration的结果进行输入********/
 		//相机内参数
-		double fx = 1196.98;
-		double fy = 1194.61;
-		double u0 = 634.075;
-		double v0 = 504.842;
+		double fx = 1138.762;
+		double fy = 1136.191;
+		double u0 = 528.117;
+		double v0 = 379.210;
 		//镜头畸变参数
-		double k1 = -0.475732;
-		double k2 = 0.405008;
-		double p1 = 0.00196334;
-		double p2 = -0.00201087;
-		double k3 = -0.337634;
+		double k1 = -0.1468817;
+		double k2 = 0.383661;
+		double p1 = -0.000137034;
+		double p2 = -0.00293748;
+		double k3 = -1.026599;
 
 		PNPSolver p4psolver;
 		p4psolver.SetCameraMatrix(fx, fy, u0, v0);

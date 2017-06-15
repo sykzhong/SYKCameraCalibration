@@ -177,13 +177,14 @@ void RTMonitor::solvePos(PNPSolver& p4psolver)
 
 	//将点重投影回图像，检验投影点是否正确
 	vector<cv::Point3f> r;
-	r.push_back(cv::Point3f(0, 100, 105));//重投影点世界坐标
+	r.push_back(cv::Point3f(100, 100, 0));//重投影点世界坐标
 	vector<cv::Point2f>	ps = p4psolver.WorldFrame2ImageFrame(r);
 
 	//重绘投影点，检验正误
 	for (int i = 0; i < ps.size(); i++)
 	{
 		cv::circle(paintBoard, ps[i], 5, GREEN, -1);
+		cout << "ps[" << i << "] = " << ps[i] << endl;
 	}
 	//输出位姿信息到txt
 	ofstream fout1("..\\pnp_theta.txt");

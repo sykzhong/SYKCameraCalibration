@@ -99,8 +99,6 @@ void CAMCalibrator::setFilename() {
 	//m_filenames.push_back("sykchess19.JPG");
 	//m_filenames.push_back("sykchess20.JPG");
 	//m_filenames.push_back("sykchess21.JPG");
-
-
 }
 
 

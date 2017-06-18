@@ -3,7 +3,7 @@
 using namespace cv;
 
 CAMCalibrator::CAMCalibrator() :
-	Prefix("\\Pictures")
+	Prefix("Pictures")
 {
 
 }

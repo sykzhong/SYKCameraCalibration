@@ -86,7 +86,7 @@ Point2f RTMonitor::tracking(Mat& image, Point2f& lastcenter)
 	const double ts = 0.5 * 255;//s阈值，小于该值不判断
 	const double tv = 0.1 * 255;//v阈值，小于该值不判断
 	const double th = 0 * 180 / 360;//h中心
-	const double thadd = 30 * 180 / 360;//h范围在th±thadd内的才被算作是红色
+	const double thadd = 35 * 180 / 360;//h范围在th±thadd内的才被算作是红色
 
 	int roiRows = roi.rows;
 	int roiCols = roi.cols;
@@ -173,7 +173,8 @@ void RTMonitor::solvePos(PNPSolver& p4psolver)
 		p4psolver.Points2D.push_back(lastCenters[i]);
 	}
 	//解位姿
-	p4psolver.Solve(PNPSolver::METHOD::CV_P3P);
+	//p4psolver.Solve(PNPSolver::METHOD::CV_P3P);
+	p4psolver.Solve(PNPSolver::METHOD::CV_ITERATIVE);
 
 	//将点重投影回图像，检验投影点是否正确
 	vector<cv::Point3f> r;
@@ -183,19 +184,22 @@ void RTMonitor::solvePos(PNPSolver& p4psolver)
 	//重绘投影点，检验正误
 	for (int i = 0; i < ps.size(); i++)
 	{
-		cv::circle(paintBoard, ps[i], 5, GREEN, -1);
+		//cv::circle(paintBoard, ps[i], 10, GREEN, -1);
+		cv::circle(paintBoard, ps[i], 10, WHITE, -1);
 		cout << "ps[" << i << "] = " << ps[i] << endl;
 	}
 	//输出位姿信息到txt
-	ofstream fout1("..\\pnp_theta.txt");
+	ofstream fout1("..\\MatlabFile\\pnp_theta.txt");
 	fout1 << p4psolver.Theta_W2C.x << endl << p4psolver.Theta_W2C.y << endl << p4psolver.Theta_W2C.z << endl;
 	fout1.close();
-	ofstream fout2("..\\pnp_t.txt");
+	ofstream fout2("..\\MatlabFile\\pnp_t.txt");
 	fout2 << p4psolver.Position_OcInW.x << endl << p4psolver.Position_OcInW.y << endl << p4psolver.Position_OcInW.z << endl;
 	fout2.close();
 }
 
 void RTMonitor::showPaintBoard(const string& winname)
 {
-	imshow(winname, (srcImage - paintBoard) + paintBoard);
+	//imshow(winname, (srcImage - paintBoard) + paintBoard);
+	imshow(winname, (srcImage - paintBoard));
+	imshow("sykdebug", paintBoard);
 }

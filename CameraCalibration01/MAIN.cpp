@@ -3,8 +3,6 @@
 
 #include "stdafx.h"
 #include "GlobalMethod.h"
-
-
 #include "CAMCalibrator.h"
 #include "PNPSolver.h"
 #include "Camera.h"
@@ -14,21 +12,22 @@
 //----CALIBRATION
 //----RTMONITOR
 
+INITIALIZE_EASYLOGGINGPP
 
 #define RTMONITOR
-INITIALIZE_EASYLOGGINGPP
+
 #ifdef TEST
 
 int main()
 {
 	CAMCalibrator calibrator;
 	//calibrator.getPictures("Pictures\\syk");
-	calibrator.getPic2Calibrate(false);
+	calibrator.getPic2Calibrate(true);
 }
 
 #elif defined CALIBRATION
 int main() {
-	CameraCalibrator myCameraCalibrator;
+	CAMCalibrator myCameraCalibrator;
 	myCameraCalibrator.setFilename();
 	//myCameraCalibrator.setBorderSize(Size(6, 4));		//syk注释
 	myCameraCalibrator.setBorderSize(Size(4, 7));
@@ -63,17 +62,29 @@ int main()
 		namedWindow("CamPos", 0);
 		cvSetMouseCallback("CamPos", RTMonitor::onMouseHandle, &monitor);
 		/********需结合Calibration的结果进行输入********/
+		////相机内参数
+		//double fx = 1138.762;
+		//double fy = 1136.191;
+		//double u0 = 528.117;
+		//double v0 = 379.210;
+		////镜头畸变参数
+		//double k1 = -0.1468817;
+		//double k2 = 0.383661;
+		//double p1 = -0.000137034;
+		//double p2 = -0.00293748;
+		//double k3 = -1.026599;
+
 		//相机内参数
-		double fx = 1138.762;
-		double fy = 1136.191;
-		double u0 = 528.117;
-		double v0 = 379.210;
+		double fx = 1202.185;
+		double fy = 1202.363;
+		double u0 = 535.805;
+		double v0 = 371.326;
 		//镜头畸变参数
-		double k1 = -0.1468817;
-		double k2 = 0.383661;
-		double p1 = -0.000137034;
-		double p2 = -0.00293748;
-		double k3 = -1.026599;
+		double k1 = -0.211768;
+		double k2 = 0.765674;
+		double p1 = 0.00315177;
+		double p2 = -0.000973491;
+		double k3 = -1.275098;
 
 		PNPSolver p4psolver;
 		p4psolver.SetCameraMatrix(fx, fy, u0, v0);
